@@ -1,0 +1,27 @@
+#msg {
+  text-align: center;
+  color: red;
+  position: relative;
+  bottom: 30vh;
+}
+#counter {
+  font-size: 50vw;
+  text-align: center;
+  position: relative;
+  top: 5vh;
+}
+#click {
+  height: 10vh;
+  width: 60vw;
+  font-size: 5vh;
+  position: relative;
+  left: 20vw;
+}
+#reset {
+  height: 5vh;
+  width: 25vw;
+  font-size: 2.5vh;
+  position: relative;
+  left: 37.5vw;
+  top: 1vh;
+}
