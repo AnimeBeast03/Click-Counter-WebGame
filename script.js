@@ -1,21 +1,28 @@
-// references
-var counter = document.getElementById("counter");
-var clickBtn = document.getElementById("click");
-var resetBtn = document.getElementById("reset");
-var msg = document.getElementById("msg");
+// geting references
+const counter = document.getElementById("counter");
+const clickBtn = document.getElementById("click");
+const resetBtn = document.getElementById("reset");
+const msg = document.getElementById("msg");
 
-// variables
-var lastClick = 0;
-var freshClick = 0;
-var clickTime = 200; // miliseconds
-var count = 0;
-var maxCount = 200;
-var colorChangeAt = 10;
 
-// starting game state
+
+// game configurations
+let count = 0;
+let maxCount = 200;
+let colorChangeAt = 10;
+let clickTime = 200;
+// other required variables
+let lastClick = 0;
+let freshClick = 0;
+
+
+
+// starting game status
 counter.textContent = count;
 resetBtn.style.display = "none";
 msg.style.display = "none";
+
+
 
 // when click button is pressed
 clickBtn.addEventListener("pointerdown",function() {
@@ -30,11 +37,14 @@ clickBtn.addEventListener("pointerdown",function() {
         });
         checkClickTime();
         update();
-    } else {
+    }
+    else {
         msg.style.display = "block";
         msg.textContent = "Limit Reached";
     }
 });
+
+
 
 //when reset button is pressed
 resetBtn.addEventListener("pointerdown",function() {
@@ -43,6 +53,8 @@ resetBtn.addEventListener("pointerdown",function() {
     resetBtn.style.display = "none";
     msg.style.display = "none";
 });
+
+
 
 // check time between two clicks and show fire emoji
 function checkClickTime() {
@@ -55,6 +67,8 @@ function checkClickTime() {
     }
     lastClick = freshClick;
 }
+
+
 
 // update counter and change text color every on 10th count
 function update() {
