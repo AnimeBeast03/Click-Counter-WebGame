@@ -3,6 +3,11 @@ html,body {
     padding: 0;
     touch-action: pan-x pan-y;
 }
+#fire {
+    position: fixed;
+    top: 22vh;
+    left: 5vw;
+}
 #msg {
     color: red;
     position: fixed;
@@ -54,6 +59,11 @@ html,body {
 
 /* style changes for pc */
 @media (min-width: 967px) {
+    #fire {
+        width: 20vw;
+        top: 8vh;
+        left: 40vw;
+    }
     #msg {
         bottom: 39vh;
     }
