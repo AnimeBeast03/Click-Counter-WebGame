@@ -3,6 +3,7 @@ const counter = document.getElementById("counter");
 const clickBtn = document.getElementById("click");
 const resetBtn = document.getElementById("reset");
 const msg = document.getElementById("msg");
+const fire = document.getElementById("fire");
 const progressBarBase = document.getElementById("progressBarBase");
 const progressBarTop = document.getElementById("progressBarTop");
 
@@ -10,7 +11,7 @@ const progressBarTop = document.getElementById("progressBarTop");
 
 // game configurations
 let count = 0;
-let maxCount = 200;
+let maxCount = 20;
 let colorChangeAt = 10;
 let clickTime = 200;
 // other required variables
@@ -19,10 +20,11 @@ let freshClick = 0;
 
 
 
-// starting game status
+// starting game state
 counter.textContent = count;
 resetBtn.style.display = "none";
 msg.style.display = "none";
+fire.style.display = "none";
 
 
 
@@ -44,6 +46,7 @@ resetBtn.addEventListener("pointerdown",function() {
     counter.textContent = count;
     resetBtn.style.display = "none";
     msg.style.display = "none";
+    fire.style.display = "none";
     updateBar();
 });
 
@@ -53,10 +56,9 @@ resetBtn.addEventListener("pointerdown",function() {
 function checkClickTime() {
     freshClick = Date.now();
     if (freshClick - lastClick < clickTime) {
-        msg.style.display = "block";
-        msg.textContent = String.fromCodePoint(0x1F525);
+        fire.style.display = "block";
     } else {
-        msg.style.display = "none";
+        fire.style.display = "none";
     }
     lastClick = freshClick;
 }
