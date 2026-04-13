@@ -1,6 +1,7 @@
-body {
+html,body {
     margin: 0;
     padding: 0;
+    touch-action: pan-x pan-y;
 }
 #msg {
     color: red;
@@ -31,4 +32,54 @@ body {
     position: fixed;
     left: 37.5vw;
     top: 66vh;
+}
+#progressBarBase {
+    width: 60vw;
+    height: 1vh;
+    background: lightgreen;
+    position: fixed;
+    bottom: 39vh;
+    left: 20vw;
+}
+#progressBarTop {
+    width: 0vw;
+    height: 1vh;
+    background: red;
+    position: fixed;
+    bottom: 39vh;
+    left: 20vw;
+}
+
+
+
+/* style changes for pc */
+@media (min-width: 967px) {
+    #msg {
+        bottom: 39vh;
+    }
+    #counter {
+        font-size: 10vw;
+        top: -10vh;
+    }
+    #click {
+        height: 15vh;
+        width: 20vw;
+        font-size: 8vh;
+        top: 46vh;
+        left: 40vw;
+    }
+    #reset {
+        height: 10vh;
+        width: 10vw;
+        font-size: 3vh;
+        left: 45vw;
+        top: 63vh;
+    }
+    #progressBarBase {
+        width: 20vw;
+        left: 40vw;
+    }
+    #progressBarTop {
+        left: 40vw;
+    }
 }
