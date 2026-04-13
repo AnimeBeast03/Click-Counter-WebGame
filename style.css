@@ -5,7 +5,7 @@ html,body {
 }
 #fire {
     position: fixed;
-    top: 22vh;
+    bottom: 45vh;
     left: 5vw;
 }
 #msg {
@@ -61,7 +61,7 @@ html,body {
 @media (min-width: 967px) {
     #fire {
         width: 20vw;
-        top: 8vh;
+        bottom: 50vh;
         left: 40vw;
     }
     #msg {
