@@ -3,6 +3,8 @@ const counter = document.getElementById("counter");
 const clickBtn = document.getElementById("click");
 const resetBtn = document.getElementById("reset");
 const msg = document.getElementById("msg");
+const progressBarBase = document.getElementById("progressBarBase");
+const progressBarTop = document.getElementById("progressBarTop");
 
 
 
@@ -27,20 +29,10 @@ msg.style.display = "none";
 // when click button is pressed
 clickBtn.addEventListener("pointerdown",function() {
     if (count < maxCount) {
-        // give a popup effect to the counter
-        counter.animate([
-            { fontSize: "50vw", top: "5vh" },
-            { fontSize: "60vw", top: "0vh" },
-            { fontSize: "50vw", top: "5vh" }
-        ], {
-            duration: 250
-        });
+        doPopup();
         checkClickTime();
-        update();
-    }
-    else {
-        msg.style.display = "block";
-        msg.textContent = "Limit Reached";
+        updateCount();
+        updateBar();
     }
 });
 
@@ -52,6 +44,7 @@ resetBtn.addEventListener("pointerdown",function() {
     counter.textContent = count;
     resetBtn.style.display = "none";
     msg.style.display = "none";
+    updateBar();
 });
 
 
@@ -70,8 +63,8 @@ function checkClickTime() {
 
 
 
-// update counter and change text color every on 10th count
-function update() {
+// update counter and change text color every on nth count
+function updateCount() {
     count+=1;
     counter.textContent = count;
     resetBtn.style.display = "block";
@@ -80,5 +73,42 @@ function update() {
         var g = Math.floor(Math.random()*226);
         var b = Math.floor(Math.random()*226);
         counter.style.color = "rgb(" + r + "," + g + "," + b + ")";
+    }
+    if (count >= maxCount) {
+        msg.style.display = "block";
+        msg.textContent = "Limit Reached";
+    }
+}
+
+
+
+// update the progress bar
+function updateBar() {
+    let persentCount = (count/maxCount)*100;
+    let baseWidth = Math.trunc((progressBarBase.offsetWidth/window.innerWidth)*100);
+    let topWidth = baseWidth*(persentCount/100);
+    progressBarTop.style.width = topWidth + "vw";
+}
+
+
+
+// give a popup effect to the counter
+function doPopup() {
+    if (window.innerWidth >= 967) {
+        counter.animate([
+            { fontSize: "10vw", top: "-10vh" },
+            { fontSize: "13vw", top: "-18vh" },
+            { fontSize: "10vw", top: "-10vh" }
+        ], {
+            duration: 250
+        });
+    } else {
+        counter.animate([
+            { fontSize: "50vw", top: "5vh" },
+            { fontSize: "60vw", top: "0vh" },
+            { fontSize: "50vw", top: "5vh" }
+        ], {
+            duration: 250
+        });
     }
 }
