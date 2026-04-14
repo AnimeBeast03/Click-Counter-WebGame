@@ -10,17 +10,18 @@ const progressBarTop = document.getElementById("progressBarTop");
 
 
 // game configurations
-let count = 0;
-let maxCount = 20;
+let startCount = 0;
+let maxCount = 200;
 let colorChangeAt = 10;
 let clickTime = 200;
 // other required variables
+let count = startCount;
 let lastClick = 0;
 let freshClick = 0;
 
 
 
-// starting game state
+// starting game status
 counter.textContent = count;
 resetBtn.style.display = "none";
 msg.style.display = "none";
@@ -42,7 +43,7 @@ clickBtn.addEventListener("pointerdown",function() {
 
 //when reset button is pressed
 resetBtn.addEventListener("pointerdown",function() {
-    count = 0;
+    count = startCount;
     counter.textContent = count;
     resetBtn.style.display = "none";
     msg.style.display = "none";
