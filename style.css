@@ -6,7 +6,7 @@ html,body {
 #fire {
     position: fixed;
     bottom: 45vh;
-    left: 5vw;
+    left: 7vw;
 }
 #msg {
     color: red;
@@ -21,6 +21,7 @@ html,body {
     top: 5vh;
     width: 100%;
     text-align: center;
+    -webkit-text-stroke: 2.5px black;
 }
 #click {
     height: 10vh;
@@ -60,8 +61,8 @@ html,body {
 /* style changes for pc */
 @media (min-width: 967px) {
     #fire {
-        width: 20vw;
         bottom: 50vh;
+        width: 20vw;
         left: 40vw;
     }
     #msg {
