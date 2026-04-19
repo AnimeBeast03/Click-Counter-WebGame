@@ -1,117 +1,93 @@
-// geting references
-const counter = document.getElementById("counter");
-const clickBtn = document.getElementById("click");
-const resetBtn = document.getElementById("reset");
-const msg = document.getElementById("msg");
-const fire = document.getElementById("fire");
-const progressBarBase = document.getElementById("progressBarBase");
-const progressBarTop = document.getElementById("progressBarTop");
+// get html elements
+const container = document.getElementsByClassName("container")[0];
+const itemList = document.getElementsByClassName("item");
 
 
 
-// game configurations
+// game configurations (can be changed)
 let startCount = 0;
 let maxCount = 200;
-let colorChangeAt = 10;
-let clickTime = 200;
-// other required variables
-let count = startCount;
+let colorChangeAt = 10; // color changes every n clicks 
+let clickDistance = 200; // time taken in mili-seconds between two clicks
+// global game variables (can not be changed)
+let actualCount = startCount;
 let lastClick = 0;
-let freshClick = 0;
+const items = {};
 
 
 
-// starting game status
-counter.textContent = count;
-resetBtn.style.display = "none";
-msg.style.display = "none";
-fire.style.display = "none";
+// call game functions
+stalkItems();
+gameReset();
+// make buttons functionable
+items.clickBtn.addEventListener("pointerdown",handleButtonInput);
+items.resetBtn.addEventListener("pointerdown",handleButtonInput);
 
 
 
-// when click button is pressed
-clickBtn.addEventListener("pointerdown",function() {
-    if (count < maxCount) {
-        doPopup();
-        checkClickTime();
-        updateCount();
-        updateBar();
+// all functions
+function stalkItems() {
+    // store all items inside an object
+    for (let i = 0; i < itemList.length; i++) {
+        let name = itemList[i].dataset.name;
+        items[name] = itemList[i];
     }
-});
-
-
-
-//when reset button is pressed
-resetBtn.addEventListener("pointerdown",function() {
-    count = startCount;
-    counter.textContent = count;
-    resetBtn.style.display = "none";
-    msg.style.display = "none";
-    fire.style.display = "none";
-    updateBar();
-});
-
-
-
-// check time between two clicks and show fire emoji
+}
+function gameReset() {
+    // make the game ready to start (again)
+    items.fire.style.visibility = "hidden";
+    items.counter.textContent = actualCount;
+    items.counter.style.color = "black";
+    items.msg.style.visibility = "hidden";
+    items.resetBtn.style.visibility = "hidden";
+}
+function handleButtonInput(event) {
+    // click button functionability
+    if (event.target.dataset.name == "clickBtn") {
+        if (actualCount < maxCount) {
+            actualCount++;
+            items.counter.textContent = actualCount;
+            items.resetBtn.style.visibility = "visible";
+            if (Number.isInteger(actualCount/colorChangeAt)) {
+                let r = Math.floor(Math.random()*226);
+                let g = Math.floor(Math.random()*226);
+                let b = Math.floor(Math.random()*226);
+                items.counter.style.color = "rgb(" + r + "," + g + "," + b + ")";
+            }
+            makeCounterPopup();
+            checkClickTime();
+            updateProgressBar();
+        } else {
+            items.msg.style.visibility = "visible";
+        }
+    }
+    // reset button functionability
+    if (event.target.dataset.name == "resetBtn") {
+        actualCount = startCount;
+        gameReset();
+        updateProgressBar();
+    }
+}
+function makeCounterPopup() {
+    // makes counter text popup a little
+    items.counter.animate([
+        { fontSize: "40cqw", top: "25%"},
+        { fontSize: "60cqw", top: "15%"}
+    ], {
+        duration: 250
+    });
+}
 function checkClickTime() {
-    freshClick = Date.now();
-    if (freshClick - lastClick < clickTime) {
-        fire.style.display = "block";
+    // check click timing and make fire visible accordingly 
+    let freshClick = Date.now();
+    if (freshClick - lastClick < clickDistance) {
+        items.fire.style.visibility = "visible";
     } else {
-        fire.style.display = "none";
+        items.fire.style.visibility = "hidden";
     }
     lastClick = freshClick;
 }
-
-
-
-// update counter and change text color every on nth count
-function updateCount() {
-    count+=1;
-    counter.textContent = count;
-    resetBtn.style.display = "block";
-    if (Number.isInteger(count/colorChangeAt)) {
-        var r = Math.floor(Math.random()*226);
-        var g = Math.floor(Math.random()*226);
-        var b = Math.floor(Math.random()*226);
-        counter.style.color = "rgb(" + r + "," + g + "," + b + ")";
-    }
-    if (count >= maxCount) {
-        msg.style.display = "block";
-        msg.textContent = "Limit Reached";
-    }
-}
-
-
-
-// update the progress bar
-function updateBar() {
-    let persentCount = (count/maxCount)*100;
-    let baseWidth = Math.trunc((progressBarBase.offsetWidth/window.innerWidth)*100);
-    let topWidth = baseWidth*(persentCount/100);
-    progressBarTop.style.width = topWidth + "vw";
-}
-
-
-
-// give a popup effect to the counter
-function doPopup() {
-    if (window.innerWidth >= 967) {
-        counter.animate([
-            { fontSize: "10vw", top: "-10vh" },
-            { fontSize: "13vw", top: "-18vh" },
-            { fontSize: "10vw", top: "-10vh" }
-        ], {
-            duration: 250
-        });
-    } else {
-        counter.animate([
-            { fontSize: "50vw", top: "5vh" },
-            { fontSize: "60vw", top: "0vh" },
-            { fontSize: "50vw", top: "5vh" }
-        ], {
-            duration: 250
-        });
-    }
+function updateProgressBar() {
+    let percentage = (actualCount/maxCount)*100;
+    items.progressbar.style.background = "linear-gradient(to right, red " + percentage + "%, lightgreen " + percentage + "%)";
 }
