@@ -1,17 +1,23 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <title> Click Counter - Webgame </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
         <link rel="stylesheet" href="style.css">
         <script src="script.js" defer></script>
     </head>
     <body>
-        <img id="fire" src="assets/fire.gif">
-        <h1 id="counter"></h1>
-        <p id="msg"></p>
-        <button id="click">Click Here</button><br>
-        <button id="reset">Reset</button>
-        <div id="progressBarBase"></div>
-        <div id="progressBarTop"></div>
+        <!-- container div holding every other element -->
+        <div class="container" data-name="habibi">
+            <!-- counter and the fire animation -->
+            <img class="item fire" data-name="fire" src="assets/fire.gif" alt="Fire Animation">
+            <p class="item counter" data-name="counter"></p>
+            <!-- text msg and the progress bar -->
+            <p class="item msg" data-name="msg">Limit Reached</p>
+            <div class="item progressbar" data-name="progressbar"></div>
+            <!-- all the buttons -->
+            <button class="item click" data-name="clickBtn">Click Here</button>
+            <button class="item reset" data-name="resetBtn">Reset</button>
+        </div>
     </body>
 </html>
